@@ -65,5 +65,6 @@ app.get('/category' , function(req,res) {
 })
 
 //** start the server */
-app.listen(port);
-console.log('Server started at http://localhost:' + port);
+app.listen(port, () => {
+  console.log("Server start at  port:", port)
+});

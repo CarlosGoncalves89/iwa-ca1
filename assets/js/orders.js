@@ -64,9 +64,9 @@ $('#total').text(formatMoney(total));
 
 //** Get categoryes from endpoint /category */
 $.ajax({
-	url: '/category',
+	url: 'http://localhost:5000/api/category',
 }).done((data) => {
-	category = data;
+	category = data.list;
 	for (var i = 0; i < category.length; i++) {
 		$('#categories').append(categoryDropDown(category[i]));
 		$('#tbody-products').append(categoryTableConstruct(category[i]));
@@ -74,9 +74,9 @@ $.ajax({
 
   //** Get products from endpoint /products */
 	$.ajax({
-		url: '/products',
+		url: 'http://localhost:5000/api/products',
 	}).done((data) => {
-		products = data;
+		products = data.list;
 
     //** choose the category and sum the total of products */
 		for (var i = 0; i < products.length; i++) {
@@ -103,7 +103,7 @@ $.ajax({
 //** Delete a product from the json */
 $('#delete').click(function () {
 	$.ajax({
-		url: '/product',
+		url: 'http://localhost:5000/api/products',
 		type: 'DELETE',
 		contentType: 'application/json;charset=utf-8',
 		dataType: 'json',

@@ -18,7 +18,7 @@ $('#submit').click(function () {
 
   //** Create a product on the JSON */
 	$.ajax({
-		url: '/product',
+		url: 'http://localhost:5000/api/products',
 		type: 'POST',
 		contentType: 'application/json;charset=utf-8',
 		dataType: 'json',

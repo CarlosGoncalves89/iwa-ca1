@@ -18,7 +18,7 @@ $('#submit').click(function () {
 
   //** Create a product on the JSON */
 	$.ajax({
-		url: 'http://localhost:5000/api/products',
+		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
 		type: 'POST',
 		contentType: 'application/json;charset=utf-8',
 		dataType: 'json',

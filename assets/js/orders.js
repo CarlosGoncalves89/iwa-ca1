@@ -64,7 +64,7 @@ $('#total').text(formatMoney(total));
 
 //** Get categoryes from endpoint /category */
 $.ajax({
-	url: 'http://localhost:5000/api/category',
+	url: 'https://barber-shop-carlos-api.herokuapp.com/api/category',
 }).done((data) => {
 	category = data.list;
 	for (var i = 0; i < category.length; i++) {
@@ -74,7 +74,7 @@ $.ajax({
 
   //** Get products from endpoint /products */
 	$.ajax({
-		url: 'http://localhost:5000/api/products',
+		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
 	}).done((data) => {
 		products = data.list;
 
@@ -103,7 +103,7 @@ $.ajax({
 //** Delete a product from the json */
 $('#delete').click(function () {
 	$.ajax({
-		url: 'http://localhost:5000/api/products',
+		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
 		type: 'DELETE',
 		contentType: 'application/json;charset=utf-8',
 		dataType: 'json',

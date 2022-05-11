@@ -102,14 +102,16 @@ $.ajax({
 
 //** Delete a product from the json */
 $('#delete').click(function () {
-	$.ajax({
+	ids.forEach(id => {
+		$.ajax({
 		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
 		type: 'DELETE',
 		contentType: 'application/json;charset=utf-8',
 		dataType: 'json',
-		data: JSON.stringify(ids),
+		data: JSON.stringify(id),
 		success: (res) => {
-			console.log('res', res);
-		}
-	})
+				console.log('res', res);
+			}
+		})
+	});
 });

@@ -1,4 +1,6 @@
-$('#submit').click(function () {
+$('#submit').click(function (e) {
+	e.preventDefault();
+
   //** Select the dropdown value */
 	const categoryCod = $('#categories option:selected').val();
 
@@ -24,7 +26,7 @@ $('#submit').click(function () {
 		dataType: 'json',
 		data: JSON.stringify(data),
 		success: (res) => {
-			console.log('res', res);
+			window.location.reload();
 		}
 	})
 });

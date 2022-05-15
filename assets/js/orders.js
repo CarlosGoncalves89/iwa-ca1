@@ -16,10 +16,10 @@ const formatMoney = (money) => {
 
 //** Create row, table of products */
 function tableRow(product) {
-	return `<tr for="check_${product.id}" id="product_${product.id}">
+	return `<tr for="check_${product._id}" id="product_${product._id}">
     <th class="me-3 text-center">
-      <input type="checkbox" id="check_${product.id}">
-      <input type="hidden" value="${product.id}">
+      <input type="checkbox" id="check_${product._id}">
+      <input type="hidden" value="${product._id}">
     </th>
     <th>${product.product}</th>
     <td>${product.time}</td> 
@@ -44,18 +44,22 @@ function chooseCategory(product) {
 
 //** Sum Total of Products */
 function sumTotal(id) {
-	const product = products.find((product) => product.id == id);
+	const product = products.find((product) => product._id == id);
 
-	total += product.price;
-	$('#total').text(formatMoney(total));
+	if (product) {
+		total += product.price;
+		$('#total').text(formatMoney(total));
+	}
 }
 
 //** When remove a product */
 function minusTotal(id) {
-	const product = products.find((product) => product.id == id);
+	const product = products.find((product) => product._id == id);
 
-	total -= product.price;
-	$('#total').text(formatMoney(total));
+	if (product) {
+		total -= product.price;
+		$('#total').text(formatMoney(total));
+	}
 }
 
 //** Format Total */
@@ -72,18 +76,18 @@ $.ajax({
 		$('#tbody-products').append(categoryTableConstruct(category[i]));
 	}
 
-  //** Get products from endpoint /products */
+	//** Get products from endpoint /products */
 	$.ajax({
 		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
 	}).done((data) => {
 		products = data.list;
 
-    //** choose the category and sum the total of products */
+		//** choose the category and sum the total of products */
 		for (var i = 0; i < products.length; i++) {
 			chooseCategory(products[i]);
-			$(`#check_${products[i].id}`).change(function () {
+			$(`#check_${products[i]._id}`).change(function () {
 				if ($(this).is(':checked')) {
-					const id = Number($(this).next().val());
+					const id = $(this).next().val();
 
 					ids.push(id)
 
@@ -100,17 +104,15 @@ $.ajax({
 	});
 });
 
-//** Delete a product from the json */
-$('#delete').click(function () {
+//** Delete a product from the mongodb */
+$('#delete').click(function (e) {
+	e.preventDefault();
 	ids.forEach(id => {
 		$.ajax({
-		url: 'https://barber-shop-carlos-api.herokuapp.com/api/products',
-		type: 'DELETE',
-		contentType: 'application/json;charset=utf-8',
-		dataType: 'json',
-		data: JSON.stringify(id),
-		success: (res) => {
-				console.log('res', res);
+			url: `https://barber-shop-carlos-api.herokuapp.com/api/products/${id}`,
+			type: 'DELETE',
+			success: (res) => {
+				window.location.reload();
 			}
 		})
 	});
